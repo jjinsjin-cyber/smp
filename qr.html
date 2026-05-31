@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>배포 URL QR 코드 생성기</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  </head>
+  <body>
+    <div class="grid-background" aria-hidden="true"></div>
+    <main class="qr-shell">
+      <section class="panel qr-panel">
+        <p class="eyebrow">GITHUB PAGES QR LINK</p>
+        <h1>배포 URL<br /><span>QR 코드 생성기</span></h1>
+        <p class="hero-copy">GitHub Pages 주소를 입력하면 바로 연결할 수 있는 QR 코드를 생성합니다.</p>
+        <form class="qr-form" id="qrForm">
+          <label>
+            GitHub Pages URL
+            <input id="pageUrl" type="url" placeholder="https://username.github.io/repository/" required />
+          </label>
+          <button class="primary-button" type="submit">QR 코드 생성</button>
+        </form>
+        <p class="form-error" id="qrError" role="alert"></p>
+        <div id="qrcode" aria-live="polite"></div>
+        <a class="back-link" href="./index.html">← 시뮬레이터로 돌아가기</a>
+      </section>
+    </main>
+    <script>
+      "use strict";
+      const qrContainer = document.querySelector("#qrcode");
+      document.querySelector("#qrForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const url = document.querySelector("#pageUrl").value.trim();
+        const error = document.querySelector("#qrError");
+        qrContainer.innerHTML = "";
+        try {
+          new URL(url);
+          error.textContent = "";
+          new QRCode(qrContainer, { text: url, width: 220, height: 220, colorDark: "#06101b", colorLight: "#ffffff" });
+        } catch {
+          error.textContent = "올바른 URL을 입력해 주세요.";
+        }
+      });
+    </script>
+  </body>
+</html>

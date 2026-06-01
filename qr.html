@@ -37,7 +37,7 @@
         try {
           new URL(url);
           error.textContent = "";
-          new QRCode(qrContainer, { text: url, width: 220, height: 220, colorDark: "#06101b", colorLight: "#ffffff" });
+          new QRCode(qrContainer, { text: url, width: 220, height: 220, colorDark: "#000000", colorLight: "#ffffff" });
         } catch {
           error.textContent = "올바른 URL을 입력해 주세요.";
         }
